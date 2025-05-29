@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAIF'S - Suède Noix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables CSS para una gestión de colores y fuentes fácil y consistente */
+        :root {
+            --color-header-background: #bb964a; /* Color del banner de la imagen de etiqueta */
+            --color-dark-green: #1A4314; /* Verde oscuro de la etiqueta */
+            --color-golden: #A67C00; /* Dorado de la etiqueta */
+            --color-light-cream: #F8F8F0; /* Crema muy claro para fondos y texto claro */
+            --color-text-dark: #333333; /* Texto oscuro general */
+            --color-white: #ffffff; /* Blanco puro */
+
+            --font-serif: 'Cormorant Garamond', serif; /* Fuente elegante para títulos */
+            --font-sans: 'Montserrat', sans-serif; /* Fuente moderna para texto general */
+        }
+
+        /* Estilos generales del cuerpo de la página */
+        body {
+            font-family: var(--font-sans); /* Fuente principal */
+            margin: 0; /* Elimina el margen predeterminado del navegador */
+            padding: 0; /* Elimina el padding predeterminado del navegador */
+            box-sizing: border-box; /* Incluye padding y borde en el tamaño total del elemento */
+            color: var(--color-text-dark); /* Color de texto predeterminado */
+            background-color: var(--color-light-cream); /* Color de fondo general */
+            line-height: 1.6; /* Espaciado de línea para mejor legibilidad */
+            overflow-x: hidden; /* Evita el scroll horizontal */
+        }
+
+        /* Contenedor principal para centrar el contenido y aplicar padding */
+        .container {
+            max-width: 1200px; /* Ancho máximo del contenido */
+            margin: 0 auto; /* Centra el contenedor horizontalmente */
+            padding: 20px; /* Padding interno */
+        }
+
+        /* Estilos del encabezado de la página */
+        header {
+            background-color: var(--color-header-background); /* Fondo color de la imagen de banner */
+            color: var(--color-dark-green); /* Texto color verde oscuro para contraste */
+            padding: 20px 0; /* Padding vertical */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+            position: sticky; /* Hace que el encabezado se quede fijo al hacer scroll */
+            top: 0; /* Se pega a la parte superior */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+            /* Agregado para la funcionalidad de esconder/mostrar */
+            transform: translateY(0); /* Posición inicial visible */
+            transition: transform 0.3s ease-out; /* Transición suave para el efecto */
+        }
+
+        /* Clase para esconder el encabezado */
+        header.header-hidden {
+            transform: translateY(-100%); /* Desplaza el encabezado hacia arriba para esconderlo */
+        }
+
+        header .header-content {
+            display: flex;
+            justify-content: space-between; /* Alinea logo a la izquierda y nav a la derecha/centro */
+            align-items: center;
+            padding: 0 20px; /* Asegura padding en los lados */
+        }
+
+        header .logo-container {
+            display: flex;
+            align-items: center;
+            /* El logo ya está alineado a la izquierda por justify-content: space-between en header-content */
+        }
+
+        header .logo-main {
+            font-family: var(--font-serif); /* Fuente elegante para el título principal */
+            font-size: 3.5em; /* Tamaño de fuente grande */
+            margin: 0; /* Elimina márgenes predeterminados */
+            letter-spacing: 3px; /* Espaciado entre letras */
+            text-transform: uppercase; /* Texto en mayúsculas */
+            font-weight: 700; /* Más peso para el logo */
+            color: var(--color-dark-green); /* Color del logo de KAIF'S */
+        }
+
+        /* Oculta el subtítulo que antes tenía el nombre del producto */
+        header .logo-sub {
+            display: none;
+        }
+
+        /* Estilos de la barra de navegación */
+        nav ul {
+            list-style: none; /* Elimina los puntos de la lista */
+            padding: 0; /* Elimina el padding de la lista */
+            margin: 0; /* Elimina márgenes predeterminados */
+            display: flex; /* Utiliza flexbox para alinear elementos */
+            justify-content: center; /* Centra los elementos horizontalmente */
+            gap: 40px; /* Espacio entre los elementos de la lista */
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+        }
+
+        nav a {
+            color: var(--color-dark-green); /* Color de los enlaces, contrastando con el fondo del header */
+            text-decoration: none; /* Sin subrayado */
+            font-weight: 500; /* Grosor de la fuente */
+            font-size: 1.2em; /* Tamaño de fuente */
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave al pasar el ratón */
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Fondo semitransparente al pasar el ratón */
+            color: var(--color-white); /* Color blanco al pasar el ratón */
+        }
+
+        /* CARRUSEL DE VIDEOS PROMOCIONALES */
+        .video-carousel {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+            background-color: #000; /* Fondo de respaldo */
+        }
+
+        .carousel-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease-in-out; /* Transición suave para el movimiento del carrusel */
+        }
+
+        .carousel-slide {
+            min-width: 100%; /* Cada slide ocupa el 100% del ancho del track */
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+            flex-shrink: 0; /* Evita que los slides se encojan */
+        }
+
+        .carousel-slide iframe,
+        .carousel-slide video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            pointer-events: none; /* Evita interacciones directas con el iframe para una experiencia de video de fondo */
+        }
+
+        /* Overlay para el texto en los videos */
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%); /* Degradado oscuro en la parte inferior para legibilidad del texto */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Alinea el contenido al final */
+            align-items: center;
+            padding-bottom: 50px; /* Padding para el contenido */
+            color: var(--color-white);
+            text-align: center;
+            z-index: 1; /* Asegura que el overlay esté sobre el video */
+        }
+
+        .carousel-overlay h2 {
+            font-family: var(--font-serif);
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--color-golden); /* Título del carrusel en dorado */
+        }
+
+        .carousel-overlay p {
+            font-family: var(--font-sans);
+            font-size: 1.3em;
+            font-weight: 300;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            color: var(--color-light-cream); /* Texto en crema */
+        }
+
+        /* Controles de navegación del carrusel */
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--color-white);
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            z-index: 2; /* Asegura que los botones estén sobre el carrusel */
+            font-size: 2em;
+            border-radius: 50%; /* Botones circulares */
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .carousel-nav-btn:hover {
+            opacity: 1;
+        }
+
+        .carousel-nav-btn.prev {
+            left: 20px;
+        }
+
+        .carousel-nav-btn.next {
+            right: 20px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            gap: 10px; /* Espacio entre los puntos */
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.5); /* Puntos inactivos semitransparentes */
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--color-golden); /* Punto activo en dorado */
+        }
+
+
+        /* Estilos generales para las secciones (resto de la página) */
+        section {
+            padding: 80px 0; /* Padding vertical más generoso */
+            text-align: center; /* Centra el texto */
+        }
+
+        section h2 {
+            font-family: var(--font-serif); /* Fuente elegante */
+            font-size: 3em; /* Tamaño de fuente más grande */
+            color: var(--color-dark-green); /* Color verde oscuro */
+            margin-bottom: 50px; /* Margen inferior más generoso */
+            position: relative; /* Posicionamiento relativo para la línea decorativa */
+            display: inline-block; /* Permite que la línea se centre debajo */
+            padding-bottom: 10px; /* Espacio para la línea */
+        }
+
+        /* Línea decorativa debajo de los títulos de sección */
+        section h2::after {
+            content: ''; /* Contenido vacío para crear la línea */
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--color-golden);
+            border-radius: 2px;
+        }
+
+        /* Sección de Bondades del Producto */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .benefit-item {
+            background-color: var(--color-white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--color-light-cream);
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-item img {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 25px;
+            object-fit: contain;
+            filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.2));
+        }
+
+        .benefit-item h3 {
+            font-family: var(--font-serif);
+            color: var(--color-dark-green);
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+
+        .benefit-item p {
+            color: var(--color-text-dark);
+            font-size: 1.1em;
+        }
+
+        /* Sección de Catálogo de Productos */
+        .catalog {
+            background-color: var(--color-light-cream);
+            padding: 80px 0;
+        }
+
+        .search-bar {
+            margin-bottom: 50px;
+            text-align: center;
+            display: flex; /* Usamos flexbox para alinear el input y el botón */
+            justify-content: center;
+            align-items: center;
+            gap: 15px; /* Espacio entre el input y el botón */
+        }
+
+        .search-bar input[type="text"] {
+            width: 60%;
+            max-width: 500px; /* Reducido para dejar espacio al botón */
+            padding: 15px 25px;
+            border: 2px solid var(--color-golden);
+            border-radius: 30px;
+            font-size: 1.2em;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--color-white);
+            color: var(--color-text-dark);
+        }
+
+        .search-bar input[type="text"]::placeholder {
+            color: #888;
+        }
+
+        .search-bar input[type="text"]:focus {
+            border-color: var(--color-dark-green);
+            box-shadow: 0 0 10px rgba(26, 67, 20, 0.2);
+        }
+
+        .search-bar button {
+            background-color: var(--color-dark-green);
+            color: var(--color-white);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap; /* Evita que el texto del botón se rompa */
+        }
+
+        .search-bar button:hover {
+            background-color: var(--color-golden);
+            transform: translateY(-2px);
+        }
+
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .product-card {
+            background-color: var(--color-white);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--color-light-cream);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--color-light-cream);
+        }
+
+        .product-info {
+            padding: 30px;
+        }
+
+        .product-info h3 {
+            font-family: var(--font-serif);
+            color: var(--color-dark-green);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .product-info p {
+            color: var(--color-text-dark);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .product-info .price {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--color-golden);
+        }
+
+        /* Sección de Contacto */
+        #contacto {
+            background-color: var(--color-dark-green);
+            color: var(--color-light-cream);
+            padding: 80px 0;
+        }
+
+        #contacto h2 {
+            color: var(--color-golden);
+        }
+
+        #contacto p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: var(--color-light-cream);
+        }
+
+        #contacto a {
+            color: var(--color-golden);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        #contacto a:hover {
+            color: var(--color-white);
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: var(--color-dark-green);
+            color: var(--color-light-cream);
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.95em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Modal del Chatbot */
+        .chatbot-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000; /* Por encima de todo */
+            visibility: hidden; /* Oculto por defecto */
+            opacity: 0;
+            transition: visibility 0.3s, opacity 0.3s;
+        }
+
+        .chatbot-modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .chatbot-modal {
+            background-color: var(--color-white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 500px;
+            height: 80%;
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chatbot-header {
+            background-color: var(--color-dark-green);
+            color: var(--color-white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-serif);
+            font-size: 1.5em;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .chatbot-header button {
+            background: none;
+            border: none;
+            color: var(--color-white);
+            font-size: 1.8em;
+            cursor: pointer;
+            padding: 0 5px;
+            transition: color 0.2s ease;
+        }
+
+        .chatbot-header button:hover {
+            color: var(--color-golden);
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: var(--color-light-cream);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            line-height: 1.4;
+            word-wrap: break-word; /* Asegura que el texto largo se ajuste */
+        }
+
+        .chat-message.user {
+            background-color: var(--color-golden);
+            color: var(--color-white);
+            align-self: flex-end; /* Alinea los mensajes del usuario a la derecha */
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-message.ai {
+            background-color: var(--color-white);
+            color: var(--color-text-dark);
+            align-self: flex-start; /* Alinea los mensajes de la IA a la izquierda */
+            border: 1px solid var(--color-light-cream);
+            border-bottom-left-radius: 5px;
+        }
+        .chat-message.loading {
+            background-color: #e0e0e0;
+            color: #555;
+            align-self: flex-start;
+            font-style: italic;
+        }
+
+        .chatbot-input-area {
+            display: flex;
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background-color: var(--color-white);
+        }
+
+        .chatbot-input-area input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--color-golden);
+            border-radius: 25px;
+            font-size: 1em;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .chatbot-input-area button {
+            background-color: var(--color-dark-green);
+            color: var(--color-white);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input-area button:hover {
+            background-color: var(--color-golden);
+        }
+
+        /* Diseño Responsivo para pantallas más pequeñas */
+        @media (max-width: 768px) {
+            header .logo-main {
+                font-size: 2.8em;
+            }
+
+            header .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0 15px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+                text-align: left;
+                margin-top: 15px;
+            }
+            nav a {
+                display: block;
+                padding: 10px 15px;
+            }
+
+            .carousel-overlay h2 {
+                font-size: 3em;
+            }
+
+            .carousel-overlay p {
+                font-size: 1.2em;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            section h2 {
+                font-size: 2.5em;
+            }
+
+            .benefits-grid, .product-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .search-bar {
+                flex-direction: column; /* Apila el input y el botón en móviles */
+                gap: 10px;
+            }
+
+            .search-bar input[type="text"] {
+                width: 90%;
+                max-width: none; /* Elimina el max-width para que ocupe más espacio */
+            }
+
+            .search-bar button {
+                width: 90%; /* El botón ocupa casi todo el ancho */
+            }
+
+            .benefit-item, .product-card {
+                padding: 25px;
+            }
+
+            .product-card img {
+                height: 220px;
+            }
+
+            .chatbot-modal {
+                width: 95%;
+                height: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header .logo-main {
+                font-size: 2.2em;
+            }
+
+            .carousel-overlay h2 {
+                font-size: 2.2em;
+            }
+
+            .carousel-overlay p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 2em;
+            }
+
+            .benefit-item h3, .product-info h3 {
+                font-size: 1.8em;
+            }
+
+            .product-info .price {
+                font-size: 1.5em;
+            }
+
+            .chatbot-header {
+                font-size: 1.2em;
+            }
+            .chatbot-header button {
+                font-size: 1.5em;
+            }
+            .chatbot-messages {
+                padding: 15px;
+            }
+            .chatbot-input-area {
+                padding: 10px 15px;
+            }
+            .chatbot-input-area input {
+                padding: 8px 12px;
+            }
+            .chatbot-input-area button {
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <div class="header-content container">
+            <div class="logo-container">
+                <h1 class="logo-main">KAIF'S</h1>
+                <p class="logo-sub">SUÈDE NOIX</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#beneficios">Beneficios</a></li>
+                    <li><a href="#catalogo">Producto</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="video-carousel">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <div class="carousel-overlay">
+                        <h2>KAIF'S</h2>
+                        <p>Descubre el Renacer de tu Piel con Suède Noix.</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <iframe src="https://www.youtube.com/embed/o_l_L2B9o7g?autoplay=1&mute=1&loop=1&playlist=o_l_L2B9o7g&controls=0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <div class="carousel-overlay">
+                        <h2>Suède Noix</h2>
+                        <p>La Caricia de Café y Coco que tu Piel Merece.</p>
+                    </div>
+                </div>
+                <div class="carousel-slide">
+                    <iframe src="https://www.youtube.com/embed/M000C1mG92c?autoplay=1&mute=1&loop=1&playlist=M000C1mG92c&controls=0"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <div class="carousel-overlay">
+                        <h2>Belleza Natural</h2>
+                        <p>Simplemente Bello, Naturalmente Tú.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-nav-btn prev" aria-label="Video Anterior">❮</button>
+            <button class="carousel-nav-btn next" aria-label="Siguiente Video">❯</button>
+            <div class="carousel-dots"></div>
+        </section>
+
+        <section id="beneficios" class="container">
+            <h2>Las Bondades de Suède Noix</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <img src="https://placehold.co/90x90/A67C00/FFFFFF?text=🌱" alt="Icono de planta - Exfoliación Natural">
+                    <h3>Exfoliación Natural</h3>
+                    <p>Granos de café finamente molidos para una exfoliación suave pero efectiva, eliminando células muertas y revelando una piel fresca y revitalizada.</p>
+                </div>
+                <div class="benefit-item">
+                    <img src="https://placehold.co/90x90/A67C00/FFFFFF?text=💧" alt="Icono de gota de agua - Hidratación Profunda">
+                    <h3>Hidratación Profunda</h3>
+                    <p>El aceite de coco virgen nutre intensamente, dejando la piel increíblemente suave, elástica y con un brillo saludable y natural.</p>
+                </div>
+                <div class="benefit-item">
+                    <img src="https://placehold.co/90x90/A67C00/FFFFFF?text=✨" alt="Icono de brillo - Piel Radiante">
+                    <h3>Piel Radiante</h3>
+                    <p>Estimula la circulación y mejora el tono de la piel, dejándola luminosa, revitalizada y con una apariencia uniforme y rejuvenecida.</p>
+                </div>
+                <div class="benefit-item">
+                    <img src="https://placehold.co/90x90/A67C00/FFFFFF?text=☕" alt="Icono de taza de café - Aroma Envolvente">
+                    <h3>Aroma Envolvente</h3>
+                    <p>Disfruta de una experiencia sensorial única con la deliciosa y reconfortante mezcla del aroma a café y la dulzura tropical del coco.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalogo" class="catalog">
+            <div class="container">
+                <h2>Nuestro Producto: Suède Noix</h2> <div class="search-bar">
+                    <input type="text" id="productSearch" onkeyup="filterProducts()" placeholder="Buscar producto (Suède Noix)...">
+                    <button onclick="openAIChat()">Consultar con IA</button>
+                </div>
+                <div class="product-grid" id="productGrid">
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x300/A67C00/1A4314?text=Suède+Noix+Original" alt="Imagen de Suède Noix Original">
+                        <div class="product-info">
+                            <h3>Suède Noix Original</h3> <p>Nuestro clásico exfoliante para una piel suave y radiante. Con café arábica de origen sostenible y aceite de coco prensado en frío.</p>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="container">
+            <h2>Contáctanos</h2>
+            <p>¿Tienes alguna pregunta, comentario o necesitas más información sobre nuestros productos? ¡Estamos aquí para ayudarte!</p>
+            <p>Puedes contactarnos a través de:</p>
+            <p>Instagram: <a href="https://www.instagram.com/kaifsbodyscrub?igsh=OTJvdXB6MnphODF3">@kaifsbodyscrub</a></p>
+            </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 KAIF'S. Todos los derechos reservados. | Suède Noix: Renacer en terciopelo.</p>
+        </div>
+    </footer>
+
+    <div class="chatbot-modal-overlay" id="chatbotModalOverlay">
+        <div class="chatbot-modal">
+            <div class="chatbot-header">
+                <span>Asistente de KAIF'S</span>
+                <button onclick="closeAIChat()">×</button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chat-message ai">¡Hola! Soy tu asistente de KAIF'S. ¿En qué puedo ayudarte hoy sobre Suède Noix?</div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatInput" placeholder="Escribe tu pregunta..." onkeypress="handleChatInput(event)">
+                <button onclick="sendAIChatMessage()">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Funcionalidad del Header que se esconde al deslizar ---
+        const mainHeader = document.getElementById('mainHeader');
+        let lastScrollY = window.scrollY; // Almacena la última posición de scroll
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            // Si se desplaza hacia abajo Y no está en la parte superior de la página
+            if (currentScrollY > lastScrollY && currentScrollY > 70) { // 70px es un umbral para evitar que se esconda al inicio
+                mainHeader.classList.add('header-hidden');
+            }
+            // Si se desplaza hacia arriba O está de vuelta en la parte superior
+            else if (currentScrollY < lastScrollY || currentScrollY <= 70) {
+                mainHeader.classList.remove('header-hidden');
+            }
+
+            lastScrollY = currentScrollY; // Actualiza la última posición de scroll
+        });
+
+
+        // --- Funcionalidad del Carrusel de Videos ---
+        const carouselTrack = document.querySelector('.carousel-track');
+        const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+        const nextBtn = document.querySelector('.carousel-nav-btn.next');
+        const prevBtn = document.querySelector('.carousel-nav-btn.prev');
+        const dotsContainer = document.querySelector('.carousel-dots');
+        let currentSlideIndex = 0;
+        let slideInterval;
+        const autoSlideDuration = 8000; // 8 segundos
+
+        // Crear los puntos de navegación
+        slides.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.classList.add('carousel-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => moveToSlide(index));
+            dotsContainer.appendChild(dot);
+        });
+        const dots = Array.from(document.querySelectorAll('.carousel-dot'));
+
+        // Función para pausar el video activo
+        function pauseCurrentVideo() {
+            const currentIframe = slides[currentSlideIndex].querySelector('iframe');
+            if (currentIframe && currentIframe.contentWindow) {
+                // Envía un mensaje al iframe de YouTube para pausar
+                currentIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            }
+            const currentVideo = slides[currentSlideIndex].querySelector('video');
+            if (currentVideo) {
+                currentVideo.pause();
+            }
+        }
+
+        // Función para reproducir el video de la diapositiva especificada
+        function playVideo(index) {
+            const iframe = slides[index].querySelector('iframe');
+            if (iframe && iframe.contentWindow) {
+                // Envía un mensaje al iframe de YouTube para reproducir
+                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            }
+            const video = slides[index].querySelector('video');
+            if (video) {
+                video.play();
+            }
+        }
+
+
+        // Función para mover a una diapositiva específica
+        function moveToSlide(index) {
+            // Pausar el video actual antes de cambiar de diapositiva
+            pauseCurrentVideo();
+
+            if (index < 0) {
+                index = slides.length - 1;
+            } else if (index >= slides.length) {
+                index = 0;
+            }
+
+            currentSlideIndex = index;
+            const offset = -currentSlideIndex * 100;
+            carouselTrack.style.transform = `translateX(${offset}%)`;
+
+            dots.forEach((dot, i) => {
+                if (i === currentSlideIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+
+            // Reproducir el video de la nueva diapositiva
+            playVideo(currentSlideIndex);
+
+            // Reiniciar el temporizador de auto-avance
+            resetAutoSlide();
+        }
+
+        // Navegación con botones
+        nextBtn.addEventListener('click', () => moveToSlide(currentSlideIndex + 1));
+        prevBtn.addEventListener('click', () => moveToSlide(currentSlideIndex - 1));
+
+        // Auto-avance del carrusel
+        function startAutoSlide() {
+            slideInterval = setInterval(() => moveToSlide(currentSlideIndex + 1), autoSlideDuration);
+        }
+
+        function resetAutoSlide() {
+            clearInterval(slideInterval);
+            startAutoSlide();
+        }
+
+        // Iniciar el carrusel al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            // Asegúrate de que el primer video se reproduzca al cargar
+            playVideo(0);
+            startAutoSlide();
+        });
+
+
+        // --- Funcionalidad del Buscador de Productos ---
+        function filterProducts() {
+            const input = document.getElementById('productSearch');
+            const filter = input.value.toLowerCase();
+            const productGrid = document.getElementById('productGrid');
+            const products = productGrid.getElementsByClassName('product-card');
+
+            // Dado que solo hay un producto, el filtrado es muy simple
+            if (products.length > 0) {
+                const productName = products[0].querySelector('h3').textContent.toLowerCase();
+                const productDesc = products[0].querySelector('p').textContent.toLowerCase();
+                if (productName.includes(filter) || productDesc.includes(filter)) {
+                    products[0].style.display = "";
+                } else {
+                    products[0].style.display = "none";
+                }
+            }
+        }
+
+        // --- Funcionalidad del Chatbot de IA con Gemini API (versión cliente) ---
+        const chatbotModalOverlay = document.getElementById('chatbotModalOverlay');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatInput = document.getElementById('chatInput');
+
+        // Historial de la conversación para mantener el contexto
+        let chatHistory = [
+            { role: "user", parts: [{ text: "Eres un asistente de atención al cliente para la marca KAIF'S. Nuestro único producto es 'Suède Noix', un exfoliante de café y aceite de coco. Responde preguntas sobre sus ingredientes (café, aceite de coco, aceite de almendras), modo de uso (una o dos veces por semana, limpiar y humedecer la piel, aplicar generosamente, evitar áreas sensibles), beneficios (exfoliación natural, hidratación profunda, piel radiante, aroma envolvente), y consultas generales. Mantén un tono elegante y profesional." }] },
+            { role: "model", parts: [{ text: "¡Hola! Soy tu asistente de KAIF'S. ¿En qué puedo ayudarte hoy sobre Suède Noix?" }] }
+        ];
+
+        function openAIChat() {
+            chatbotModalOverlay.classList.add('active');
+            // Asegura que el historial inicial se muestre si el modal se abre por primera vez
+            if (chatbotMessages.children.length <= 1) { // Solo el mensaje inicial de bienvenida
+                 displayMessage("¡Hola! Soy tu asistente de KAIF'S. ¿En qué puedo ayudarte hoy sobre Suède Noix?", 'ai');
+            }
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Desplazar al final
+            chatInput.focus();
+        }
+
+        function closeAIChat() {
+            chatbotModalOverlay.classList.remove('active');
+        }
+
+        function displayMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', sender);
+            messageDiv.textContent = message;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Desplazar al final
+        }
+
+        async function sendAIChatMessage() {
+            const userMessage = chatInput.value.trim();
+            if (userMessage === "") return;
+
+            displayMessage(userMessage, 'user');
+            chatInput.value = '';
+
+            // Añadir el mensaje del usuario al historial
+            chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+
+            // Mostrar mensaje de carga
+            const loadingMessage = document.createElement('div');
+            loadingMessage.classList.add('chat-message', 'loading');
+            loadingMessage.textContent = 'Pensando...';
+            chatbotMessages.appendChild(loadingMessage);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+            try {
+                const payload = {
+                    contents: chatHistory,
+                    // Puedes añadir generationConfig para controlar la respuesta (ej. temperatura, topK, topP)
+                    // generationConfig: {
+                    //     temperature: 0.7,
+                    //     topK: 40,
+                    //     topP: 0.95,
+                    // }
+                };
+                const apiKey = ""; // Si quieres usar modelos que no sean gemini-2.0-flash o imagen-3.0-generate-002, proporciona una clave API aquí. De lo contrario, déjalo como está.
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                // Eliminar mensaje de carga
+                chatbotMessages.removeChild(loadingMessage);
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const aiResponse = result.candidates[0].content.parts[0].text;
+                    displayMessage(aiResponse, 'ai');
+                    // Añadir la respuesta de la IA al historial
+                    chatHistory.push({ role: "model", parts: [{ text: aiResponse }] });
+                } else {
+                    displayMessage("Lo siento, no pude obtener una respuesta en este momento. Por favor, intenta de nuevo.", 'ai');
+                    console.error("Estructura de respuesta inesperada:", result);
+                }
+            } catch (error) {
+                // Eliminar mensaje de carga
+                chatbotMessages.removeChild(loadingMessage);
+                displayMessage("Hubo un error al conectar con el asistente. Por favor, verifica tu conexión o intenta más tarde.", 'ai');
+                console.error("Error al llamar a Gemini API:", error);
+            }
+        }
+
+        // Permite enviar el mensaje con la tecla Enter
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                sendAIChatMessage();
+            }
+        }
+    </script>
+</body>
+</html>
